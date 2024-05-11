@@ -1,0 +1,20 @@
+{{-- resources\views\accounts\admin\establishments\create.blade.php --}}
+@extends('layouts.app1')
+
+@section('content')
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Create New Establishment</h1>
+    <form action="{{ route('establishments.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="ville">Ville:</label>
+            <input type="text" class="form-control" id="ville" name="ville" required>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
+@endsection
