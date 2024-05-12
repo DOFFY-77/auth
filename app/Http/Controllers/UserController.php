@@ -25,14 +25,14 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
+        // dd($request);
         $validatedData = $request->validate([
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required|email|unique:users',
             'password' => ['required', 'confirmed', Password::defaults()],
             'pin' => 'required',
-            'account_type' => 'required',
+            'type' => 'required',
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
