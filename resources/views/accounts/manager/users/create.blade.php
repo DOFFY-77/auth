@@ -36,7 +36,7 @@
         </div>
         <div class="form-group">
             <label for="account_type">Account Type</label>
-            <select class="form-control" id="account_type" name="account_type">
+            <select class="form-control" id="account_type" name="type">
                 <option value="2">Super Admin</option>
                 <option value="1">Admin</option>
                 <option value="0" selected>User</option>
