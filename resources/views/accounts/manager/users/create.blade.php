@@ -35,9 +35,15 @@
             <input type="text" class="form-control" id="pin" name="pin" required>
         </div>
         <div class="form-group">
+<<<<<<< HEAD
             <label for="type">User Type</label>
             <select class="form-control" id="type" name="type">
                 <option value="2">Manager</option>
+=======
+            <label for="account_type">Account Type</label>
+            <select class="form-control" id="account_type" name="type">
+                <option value="2">Super Admin</option>
+>>>>>>> be817145c3690400f2c04db2349f525783844153
                 <option value="1">Admin</option>
                 <option value="0" selected>User</option>
             </select>
