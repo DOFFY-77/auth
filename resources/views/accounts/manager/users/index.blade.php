@@ -25,7 +25,7 @@
                 <td>{{ $user->phone }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->pin }}</td>
-                <td>{{ $user->account_type }}</td>
+                <td>{{ $user->type }}</td>
                 <td>
                     <a href="{{ route('users.edit', $user) }}" class="btn btn-primary btn-sm">Edit</a>
                     <form action="{{ route('users.destroy', $user) }}" method="POST" style="display: inline-block;">

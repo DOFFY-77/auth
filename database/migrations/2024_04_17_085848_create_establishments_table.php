@@ -7,21 +7,21 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-    * Run the migrations.
-    */
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('establishments', function (Blueprint $table) { // Corrected table name
             $table->id();
             $table->string('name');
-            $table->string('ville');
+            $table->string('Complexe');
             $table->timestamps();
         });
     }
 
     /**
-    * Reverse the migrations.
-    */
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('establishments'); // Corrected table name

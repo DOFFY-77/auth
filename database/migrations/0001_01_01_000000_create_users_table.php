@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('pin', 6)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('type')->default(false); //add type boolean Users: 0=>User, 1=>Admin, 2=>Manager 
+            $table->integer('type')->default(0);  
             $table->rememberToken();
             $table->timestamps();
         });

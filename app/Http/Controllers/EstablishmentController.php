@@ -8,43 +8,48 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 
+
+use App\Enums\PathOfUser;
+
 class EstablishmentController extends Controller
 {
-    protected $pathOfadmin = 'accounts.admin.establishments.index';
-    protected $pathOfmanager = 'accounts.manager.establishments.index';
+    protected $paths;
 
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            // $this->userType = auth()->user()->type; // Assurez-vous que 'type' est la propriété correcte
+            $method = auth()->user()->type; // Store the method name in a variable
+            if ($method  == 'admin') {
+                $this->paths = PathOfUser::admin->getPaths()['establishments']; // Use the variable as the method name
+
+            } elseif ($method  == 'manager') {
+                $this->paths = PathOfUser::manager->getPaths()['establishments']; // Use the variable as the method name
+
+            }
+
+            return $next($request);
+        });
+    }
 
 
     public function index()
     {
 
-            $userType = auth()->user()->type;
-            $establishments = Establishment::all();
-    
-            if ($userType == 'admin') {
-                return view('accounts.admin.establishments.index', compact('establishments'));
-            } elseif ($userType == 'manager') {
-                return view('accounts.manager.establishments.index', compact('establishments'));
-            }
-    
-            return redirect('/');
-        }
-    
+
+        $establishments = Establishment::all();
+        return view($this->paths['index'], compact('establishments'));
+    }
+
 
 
 
 
     public function create()
     {
-        $userType = auth()->user()->type;
+        // $this->userType = auth()->user()->type;
 
-        if ($userType == 'admin') {
-            return view('accounts.admin.establishments.create');
-        } elseif ($userType == 'manager') {
-            return view('accounts.manager.establishments.create');
-        }
-
-        return redirect('/');
+        return view($this->paths['create']);
     }
 
 
@@ -57,15 +62,9 @@ class EstablishmentController extends Controller
 
     public function edit(Establishment $establishment)
     {
-        $userType = auth()->user()->type;
+        // $this->userType = auth()->user()->type;
 
-    if ($userType == 1) {
-        return view('accounts.admin.establishments.edit', compact('establishment'));
-    } elseif ($userType == 2) {
-        return view('accounts.manager.establishments.edit', compact('establishment'));
-    }
-
-    return redirect('/');
+        return view($this->paths['edit'], compact('establishment'));
     }
 
     public function update(Request $request, Establishment $establishment)

@@ -3,21 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Type;
+use App\Enums\PathOfUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
 class TypeController extends Controller
 {
+    protected $paths;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            // $this->userType = auth()->user()->type; // Assurez-vous que 'type' est la propriété correcte
+            $method = auth()->user()->type; // Store the method name in a variable
+            if ($method  == 'admin') {
+                $this->paths = PathOfUser::admin->getPaths()['types']; // Use the variable as the method name
+
+            } elseif ($method  == 'manager') {
+                $this->paths = PathOfUser::manager->getPaths()['types']; // Use the variable as the method name
+
+            }
+
+            return $next($request);
+        });
+    }
+
+
+
     public function index()
     {
         $types = Type::all();
-        return view('accounts.manager.types.index', compact('types'));
+        return view($this->paths['index'], compact('types'));
     }
 
     public function create()
     {
-        return view('accounts.manager.types.create');
+        return view($this->paths['create']);
     }
 
     public function store(Request $request)
@@ -34,7 +56,7 @@ class TypeController extends Controller
 
     public function edit(Type $type)
     {
-        return view('accounts.manager.types.edit', compact('type'));
+        return view($this->paths['edit'], compact('type'));
     }
 
     public function update(Request $request, Type $type)

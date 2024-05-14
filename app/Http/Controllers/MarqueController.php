@@ -3,21 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marque;
+use App\Enums\PathOfUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
 class MarqueController extends Controller
 {
+    protected $paths;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            // $this->userType = auth()->user()->type; // Assurez-vous que 'type' est la propriété correcte
+            $method = auth()->user()->type; // Store the method name in a variable
+            if ($method  == 'admin') {
+                $this->paths = PathOfUser::admin->getPaths()['marques']; // Use the variable as the method name
+
+            } elseif ($method  == 'manager') {
+                $this->paths = PathOfUser::manager->getPaths()['marques']; // Use the variable as the method name
+
+            }
+
+            return $next($request);
+        });
+    }
+
+    
     public function index()
     {
         $marques = Marque::all();
-        return view('accounts.manager.marques.index', compact('marques'));
+        return view($this->paths['index'], compact('marques'));
     }
 
     public function create()
     {
-        return view('accounts.manager.marques.create');
+        return view($this->paths['create']);
     }
 
     public function store(Request $request)
@@ -34,7 +55,7 @@ class MarqueController extends Controller
     public function edit($id)
     {
         $marque = Marque::findOrFail($id);
-        return view('accounts.manager.marques.edit', compact('marque'));
+        return view($this->paths['edit'], compact('marque'));
     }
     
     public function update(Request $request, $id)

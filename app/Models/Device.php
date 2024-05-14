@@ -19,10 +19,10 @@ class Device extends Model
         'type_id',
     ];
 
-    public function establishment()
-    {
-        return $this->belongsTo(Establishment::class);
-    }
+    // public function establishment()
+    // {
+    //     return $this->belongsTo(Establishment::class);
+    // }
 
     public function class()
     {

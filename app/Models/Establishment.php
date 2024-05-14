@@ -13,7 +13,7 @@ class Establishment extends Model
 
     protected $fillable = [
         'name',
-        'ville',
+        'Complexe',
     ];
 
     public function classes()

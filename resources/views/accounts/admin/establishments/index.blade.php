@@ -10,7 +10,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>Name</th>
-                <th>Ville</th>
+                <th>Complexe</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,7 +18,7 @@
             @foreach($establishments as $establishment)
             <tr>
                 <td>{{ $establishment->name }}</td>
-                <td>{{ $establishment->ville }}</td>
+                <td>{{ $establishment->Complexe }}</td>
                 <td>
                     <a href="{{ route('establishments.edit', $establishment->id) }}" class="btn btn-primary btn-sm">Edit</a>
                     <form action="{{ route('establishments.destroy', $establishment->id) }}" method="POST" style="display: inline-block;">

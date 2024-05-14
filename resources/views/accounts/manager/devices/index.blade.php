@@ -24,7 +24,7 @@
                 <td>{{ $device->reference }}</td>
                 <td>{{ $device->type->name }}</td>
                 <td>{{ $device->status }}</td>
-                <td>{{ $device->establishment->name }}</td>
+                <td>{{ $device->class->establishment->name }}</td>
                 <td>{{ $device->class->name }}</td>
                 <td>{{ $device->marque->name }}</td>
                 <td>{{ $device->info_device }}</td>

@@ -675,12 +675,7 @@ body.dark a {
 		
 
 		<ul class="side-menu top">
-    <li>
-        <a href="{{route('users.index')}}">
-            <i class='bx bx-user'></i>
-            <span class="text">Users</span>
-        </a>
-    </li>
+
     <li>
         <a href="{{route('establishments.index')}}">
             <i class='bx bxs-school' ></i>
@@ -709,6 +704,12 @@ body.dark a {
         <a href="{{route('devices.index')}}">
             <i class='bx bxs-cog' ></i>
             <span class="text">Devices</span>
+        </a>
+    </li>
+	<li>
+        <a href="{{route('users.index')}}">
+            <i class='bx bx-user'></i>
+            <span class="text">Users</span>
         </a>
     </li>
 </ul>

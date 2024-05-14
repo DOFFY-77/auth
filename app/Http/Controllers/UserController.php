@@ -32,7 +32,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => ['required', 'confirmed', Password::defaults()],
             'pin' => 'required',
-            'account_type' => 'required',
+            'type' => 'required',
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);

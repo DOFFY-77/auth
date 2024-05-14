@@ -1,5 +1,5 @@
-{{-- resources\views\accounts\admin\devices\edit.blade.php --}}
-@extends('layouts.app1')
+{{-- resources\views\accounts\manager\devices\edit.blade.php --}}
+@extends('layouts.app')
 
 @section('content')
 <div class="container mt-5">
@@ -7,7 +7,7 @@
     <form action="{{ route('devices.update', $device->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="establishment_id">Establishment:</label>
             <select class="form-control" name="establishment_id" id="establishment_id">
                 <option value="">Select Establishment</option>
@@ -17,13 +17,35 @@
                 </option>
                 @endforeach
             </select>
-        </div>
+        </div> --}}
+        {{-- <div class="form-group">
+            <label for="class_id">Classe</label>
+            {{-- <pre> --}}
+{{-- 
+                <select class="form-control" id="class_id" name="class_id">
+                    <option value="">Select Classe</option>
+                    @foreach ($classes as $class)
+                    <option value="{{ $class->id }}">{{ $class->name }}</option> --}}
+                    {{-- @php
+                    var_dump($classes)    
+                    @endphp
+                    </pre> --}}
+              {{-- @endforeach --}}
+            {{-- </select> --}}
+            
+        {{-- </div>  --}}
         <div class="form-group">
-            <label for="class_id">Class:</label>
-            <select class="form-control" id="class_id" name="class_id">
-                <option value="">Select Classe</option>
+            <label for="class_id">Classe:</label>
+            <select class="form-control" name="class_id" id="class_id">
+                @foreach ($classes as $class)
+                <option value="{{ $class->id }}" {{ $device->class_id == $class->id ? 'selected' : '' }}>
+                    {{ $class->name }}
+                </option>
+                @endforeach
             </select>
         </div>
+
+
         <div class="form-group">
             <label for="type_id">Type:</label>
             <select class="form-control" name="type_id" id="type_id">
@@ -63,16 +85,15 @@
     </form>
 </div>
 @endsection
-@section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
+{{-- @section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
+{{-- <script>
     $(document).ready(function() {
         // تحديث الفصول عند تحميل الصفحة
         updateClasses($('#establishment_id').val(), "{{ $device->class_id }}");
     
         $('#establishment_id').on('change', function() {
-            var establishmentId = $(this).val();
-            updateClasses(establishmentId);
+
         });
     
         function updateClasses(establishmentId, selectedClassId = "") {
@@ -100,7 +121,7 @@
             }
         }
     });
-    </script>
+    </script> --}}
     
-@endsection
+
 

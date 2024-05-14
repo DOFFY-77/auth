@@ -17,12 +17,11 @@ return new class extends Migration
             $table->string('reference');
             $table->string('status')->default('active');
             
-            $table->foreign("establishment_id")->references('id')->on("establishments");
-            $table->foreign("class_id")->references('id')->on("classes")->onDelete('cascade');
-            $table->foreign("marque_id")->references('id')->on("marques");
-            $table->foreign('type_id')->references('id')->on('types');
+            // $table->foreign("establishment_id")->references('id')->on("establishments");
+            $table->foreign("class_id")->references('id')->on("classes")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign("marque_id")->references('id')->on("marques")->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('type_id')->references('id')->on('types')->cascadeOnDelete()->cascadeOnUpdate();
             
-            $table->unsignedBigInteger("establishment_id");
             $table->unsignedBigInteger("class_id");
             $table->unsignedBigInteger("marque_id");
             $table->unsignedBigInteger("type_id");

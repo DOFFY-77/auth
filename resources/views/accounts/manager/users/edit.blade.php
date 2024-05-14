@@ -27,9 +27,9 @@
         <div class="form-group">
             <label for="account_type">Account Type</label>
             <select class="form-control" id="account_type" name="account_type">
-                <option value="Super_Admin" {{ $user->account_type == 'Super_Admin' ? 'selected' : '' }}>Super Admin</option>
-                <option value="Admin" {{ $user->account_type == 'Admin' ? 'selected' : '' }}>Admin</option>
-                <option value="User" {{ $user->account_type == 'User' ? 'selected' : '' }}>User</option>
+                <option value="Super_Admin" {{ $user->type == 'manager' ? 'selected' : '' }}>Manager</option>
+                <option value="Admin" {{ $user->type == 'admin' ? 'selected' : '' }}>Admin</option>
+                <option value="User" {{ $user->type == 'user' ? 'selected' : '' }}>User</option>
             </select>
         </div>
         <button type="submit" class="btn btn-success">Update</button>

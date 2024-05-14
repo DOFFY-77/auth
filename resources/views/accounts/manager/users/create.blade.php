@@ -35,9 +35,9 @@
             <input type="text" class="form-control" id="pin" name="pin" required>
         </div>
         <div class="form-group">
-            <label for="account_type">Account Type</label>
-            <select class="form-control" id="account_type" name="account_type">
-                <option value="2">Super Admin</option>
+            <label for="type">User Type</label>
+            <select class="form-control" id="type" name="type">
+                <option value="2">Manager</option>
                 <option value="1">Admin</option>
                 <option value="0" selected>User</option>
             </select>

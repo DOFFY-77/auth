@@ -12,8 +12,8 @@
             <input type="text" class="form-control" id="name" name="name" value="{{ $establishment->name }}" required>
         </div>
         <div class="form-group">
-            <label for="ville">Ville:</label>
-            <input type="text" class="form-control" id="ville" name="ville" value="{{ $establishment->ville }}" required>
+            <label for="Complexe">Complexe:</label>
+            <input type="text" class="form-control" id="comlexe" name="Complexe" value="{{ $establishment->Complexe }}" required>
         </div>
         <button type="submit" class="btn btn-success">Update</button>
     </form>

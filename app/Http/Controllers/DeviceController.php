@@ -2,21 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use App\Models\Device;
-use App\Models\Establishment;
-use App\Models\Classe;
-use App\Models\Marque;
 use App\Models\Type;
+use App\Models\Classe;
+use App\Models\Device;
+use App\Models\Marque;
+use App\Enums\PathOfUser;
+use Illuminate\Http\Request;
+use App\Models\Establishment;
+use Illuminate\Support\Facades\DB;
 
 class DeviceController extends Controller
 {
+    protected $paths;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            // $this->userType = auth()->user()->type; // Assurez-vous que 'type' est la propriété correcte
+            $method = auth()->user()->type; // Store the method name in a variable
+            if ($method  == 'admin') {
+                $this->paths = PathOfUser::admin->getPaths()['devices']; // Use the variable as the method name
+
+            } elseif ($method  == 'manager') {
+                $this->paths = PathOfUser::manager->getPaths()['devices']; // Use the variable as the method name
+
+            }
+
+            return $next($request);
+        });
+    }
+
     // Display a listing of the devices.
     public function index()
     {
-        $devices = Device::all();
-        return view('accounts.manager.devices.index', compact('devices'));
+
+        $devices = Device::with('class.establishment')->get();
+        return view($this->paths['index'], compact('devices'));
     }
 
     // Show the form for creating a new device.
@@ -27,7 +48,7 @@ class DeviceController extends Controller
         $marques = Marque::all();
         $types = Type::all();
 
-        return view('accounts.manager.devices.create', compact('establishments', 'classes', 'marques', 'types'));
+        return view($this->paths['create'], compact('establishments', 'classes', 'marques', 'types'));
     }
 
     // Store a newly created device in storage.
@@ -37,7 +58,7 @@ class DeviceController extends Controller
             'info_device' => 'required|string|max:255',
             'reference' => 'nullable|string',
             'status' => 'required|string',
-            'establishment_id' => 'required|integer|exists:establishments,id',
+            // 'establishment_id' => 'required|integer|exists:establishments,id',
             'class_id' => 'required|integer|exists:classes,id',
             'marque_id' => 'required|integer|exists:marques,id',
             'type_id' => 'required|integer|exists:types,id',
@@ -54,29 +75,37 @@ class DeviceController extends Controller
     public function edit(Device $device)
     {
         $establishments = Establishment::all(); // تأكد من أن هذا السطر موجود
-        $classes = Classe::all();
+        $classes = Classe::get();
         $marques = Marque::all();
         $types = Type::all();
 
-        return view('accounts.manager.devices.edit', compact('device', 'establishments', 'classes', 'marques', 'types'));
+        // return view($this->paths['edit'], compact('device', 'classes', 'marques', 'types'));
+        return view($this->paths['edit'], [
+            'device' => $device,
+            'establishments' => $establishments,
+            'classes' => $classes,
+            'marques' => $marques,
+            'types' => $types,
+        ]);
     }
 
 
     // Update the specified device in storage.
-    public function update(Request $request, Device $device)
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'info_device' => 'required|string|max:255',
-            'reference' => 'nullable|string',
-            'status' => 'required|string',
-            'establishment_id' => 'required|integer|exists:establishments,id',
-            'class_id' => 'required|integer|exists:classes,id',
-            'marque_id' => 'required|integer|exists:marques,id',
-            'type_id' => 'required|integer|exists:types,id',
-        ]);
-
-        $device->update($validatedData);
-        return redirect()->route('devices.index')->with('success', 'Device updated successfully.');
+        dd($request->all());
+        // $validatedData = $request->validate([
+        //     'info_device' => 'required|string|max:255',
+        //     'reference' => 'nullable|string',
+        //     'status' => 'required|string',
+        //     // 'establishment_id' => 'required|integer|exists:establishments,id',
+        //     'class_id' => 'required|integer|exists:classes,id',
+        //     'marque_id' => 'required|integer|exists:marques,id',
+        //     'type_id' => 'required|integer|exists:types,id',
+        // ]);
+        $device = Device::find($id);
+        // $device->update($validatedData);
+        // return redirect()->route('devices.index')->with('success', 'Device updated successfully.');
     }
 
     // Remove the specified device from storage.

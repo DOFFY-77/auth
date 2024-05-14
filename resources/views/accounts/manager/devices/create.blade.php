@@ -6,7 +6,7 @@
     <h1 class="text-center mb-4">Add New Device</h1>
     <form action="{{ route('devices.store') }}" method="POST">
         @csrf
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="establishment_id">Establishment</label>
             <select class="form-control" id="establishment_id" name="establishment_id">
                 <option value="">Select Establishment</option>
@@ -14,7 +14,7 @@
                     <option value="{{ $establishment->id }}">{{ $establishment->name }}</option>
                 @endforeach
             </select>
-        </div>
+        </div> --}}
         <div class="form-group">
             <label for="class_id">Classe</label>
             <select class="form-control" id="class_id" name="class_id">
