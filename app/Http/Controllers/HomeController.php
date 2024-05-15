@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,15 +15,18 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('accounts.user.home');
+        $user = Auth::user();
+        return view('accounts.user.home', compact('user'));
     }
 
     public function adminHome()
     {
-        return view('accounts.admin.establishements.index');
+        $user = Auth::user();
+        return view('accounts.admin.home', compact('user'));
     }
     public function managerHome()
     {
-        return view('accounts.manager.establishements.index');
+        $user = Auth::user();
+        return view('accounts.manager.home', compact('user'));
     }
 }
