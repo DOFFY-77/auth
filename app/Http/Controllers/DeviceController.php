@@ -18,16 +18,13 @@ class DeviceController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            // $this->userType = auth()->user()->type; // Assurez-vous que 'type' est la propriété correcte
             $method = auth()->user()->type; // Store the method name in a variable
             if ($method  == 'admin') {
                 $this->paths = PathOfUser::admin->getPaths()['devices']; // Use the variable as the method name
 
             } elseif ($method  == 'manager') {
                 $this->paths = PathOfUser::manager->getPaths()['devices']; // Use the variable as the method name
-
             }
-
             return $next($request);
         });
     }
@@ -93,19 +90,18 @@ class DeviceController extends Controller
     // Update the specified device in storage.
     public function update(Request $request, $id)
     {
-        dd($request->all());
-        // $validatedData = $request->validate([
-        //     'info_device' => 'required|string|max:255',
-        //     'reference' => 'nullable|string',
-        //     'status' => 'required|string',
-        //     // 'establishment_id' => 'required|integer|exists:establishments,id',
-        //     'class_id' => 'required|integer|exists:classes,id',
-        //     'marque_id' => 'required|integer|exists:marques,id',
-        //     'type_id' => 'required|integer|exists:types,id',
-        // ]);
-        $device = Device::find($id);
-        // $device->update($validatedData);
-        // return redirect()->route('devices.index')->with('success', 'Device updated successfully.');
+        
+        $device = Device::findOrFail($id);
+        $validatedData = $request->validate([
+            'info_device' => 'required|string|max:255',
+            'reference' => 'nullable|string',
+            'status' => 'required|string',
+            'class_id' => 'required|integer|exists:classes,id',
+            'marque_id' => 'required|integer|exists:marques,id',
+            'type_id' => 'required|integer|exists:types,id',
+        ]);
+        $device->update($validatedData);
+        return redirect()->route('devices.index')->with('success', 'Device updated successfully.');
     }
 
     // Remove the specified device from storage.

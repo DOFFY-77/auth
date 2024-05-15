@@ -1,10 +1,10 @@
-{{-- resources/views/classes/edit.blade.php --}}
-@extends('layouts.app1')
+{{-- resources\views\accounts\manager\classes\edit.blade.php --}}
+@extends('layouts.app')
 
 @section('content')
 <div class="container mt-4">
     <h1 class="text-center mb-4">Edit Class</h1>
-    <form action="{{ route('classes.update', $classe->$id) }}" method="POST">
+    <form action="{{ route('classes.update', $classe) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">

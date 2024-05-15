@@ -10,10 +10,8 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
 
-
     use AuthenticatesUsers;
  
-    // protected $redirectTo = RouteServiceProvider::HOME;
  
     public function __construct()
     {
@@ -35,8 +33,6 @@ class LoginController extends Controller
                 return redirect()->route('establishments.index');
             }else if (auth()->user()->type == 'manager') {
                 return redirect()->route('establishments.index');
-            }else{
-                return redirect()->route('home');
             }
         }else{
             return redirect()->route('login')
