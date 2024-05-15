@@ -9,13 +9,7 @@
 
                 <div class="card-body">
                     <h1>
-                        Hello
-                        <h3>
-                            Type: {{$user->type}}
-                            <br>
-                            email: {{ $user->email }}
-
-                        </h3>
+                        Hello{{$user->type}} : {{ $user->name }}
                     </h1>
 
 

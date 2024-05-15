@@ -96,7 +96,7 @@ body {
 }
 
 #sidebar .brand img {
-	
+
   max-width: 100%;
   height: auto;
   transition: transform 0.3s ease;
@@ -112,7 +112,7 @@ body {
 
 
 #sidebar .brand .bx {
-	
+
 	min-width: 60px;
 	display: flex;
 	justify-content: center;
@@ -445,7 +445,7 @@ body {
 	color: var(--dark);
 }
 #content main .box-info li .text p {
-	color: var(--dark);	
+	color: var(--dark);
 }
 
 
@@ -672,10 +672,15 @@ body.dark a {
 		<a href="#" class="brand">
     <img src="https://i0.wp.com/consonews.ma/wp-content/uploads/2022/07/Logo-OFPPT-VF-NV.png?w=700&ssl=1" alt="OFPPT Logo" width="50" height="50" style="margin-bottom: -70px;">
 </a>
-		
+
 
 		<ul class="side-menu top">
-
+    <li>
+        <a href="{{route('home')}}">
+            <i class='bx bxs-school' ></i>
+            <span class="text">Dashboard</span>
+        </a>
+    </li>
     <li>
         <a href="{{route('establishments.index')}}">
             <i class='bx bxs-school' ></i>
@@ -706,12 +711,14 @@ body.dark a {
             <span class="text">Devices</span>
         </a>
     </li>
-	<li>
-        <a href="{{route('users.index')}}">
+    @can('controleUsers')
+        <li>
+            <a href="{{route('users.index')}}">
             <i class='bx bx-user'></i>
             <span class="text">Users</span>
-        </a>
-    </li>
+            </a>
+        </li>
+    @endcan
 </ul>
 <ul class="side-menu">
     <li>
@@ -758,7 +765,7 @@ body.dark a {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 
-		
+
 
 // إضافة فئة active للعنصر المحدد
 const sidebarLinks = document.querySelectorAll('#sidebar .side-menu li a');

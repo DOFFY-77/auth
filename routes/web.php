@@ -27,6 +27,7 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 });
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/home', [HomeController::class, 'adminHome'])->name('home');
     Route::resource('establishments', EstablishmentController::class);
     Route::resource('classes', ClasseController::class);
     Route::resource('marques', MarqueController::class);
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'user-access:manager'])->group(function () {
+    Route::get('/home', [HomeController::class, 'managerHome'])->name('home');
     Route::resource('establishments', EstablishmentController::class);
     Route::resource('classes', ClasseController::class);
     Route::resource('marques', MarqueController::class);
